@@ -99,8 +99,8 @@ class RelatorioView(View):
         form = self.form_class(request.POST)
         try:
             if form.is_valid():
-                data_inicial = datetime.strptime('%s 00:00:00' % form.data.get('data_inicial'), '%Y-%m-%d %H:%M:%S')
-                data_final = datetime.strptime('%s 23:59:00' % form.data.get('data_final'), '%Y-%m-%d %H:%M:%S')
+                data_inicial = datetime.strptime('%s' % form.data.get('data_inicial'), '%Y-%m-%d')
+                data_final = datetime.strptime('%s' % form.data.get('data_final'), '%Y-%m-%d')
                 datainicial = datetime(data_inicial.year, data_inicial.month, data_inicial.day,
                                        tzinfo=pytz.timezone('America/Sao_Paulo'))
                 datafinal = datetime(data_final.year, data_final.month, data_final.day,
@@ -109,7 +109,7 @@ class RelatorioView(View):
                     raise Exception('Data invalida')
                 clinica = Clinica.objects.get(id=id)
                 pacientes = Paciente.objects.filter(clinica=clinica,
-                                                    criado_em__range=(datainicial, datafinal)).order_by(
+                                                    criado_em__range=[datainicial, datafinal]).order_by(
                     'criado_em')
                 if len(pacientes) == 0:
                     raise Exception("Nenhum paciente encontrado entre %s e %s. Pesquise outras datas." % (
