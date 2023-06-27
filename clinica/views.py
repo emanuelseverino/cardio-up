@@ -72,7 +72,7 @@ class PacienteNovoView(CreateView):
 
 
 class MesView(TemplateView):
-    template_name = 'clinica/mes.html'
+    template_name = 'clinica/clinica_paciente_relatorio_template.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,7 +88,7 @@ class MesView(TemplateView):
 
 class RelatorioView(View):
     form_class = RelatorioForm
-    template_name = 'clinica/clinica_relatorio_filtro.html'
+    template_name = 'clinica/clinica_relatorio_lista.html'
 
     def get(self, request, id):
         clinica = Clinica.objects.get(pk=id)
@@ -122,7 +122,7 @@ class RelatorioView(View):
                     'pacientes': pacientes,
                     'request': request,
                 }
-                return Render.render('paciente/relatorio.html', params, nome_arquivo)
+                return Render.render('clinica/clinica_paciente_relatorio_template.html', params, nome_arquivo)
         except Exception as e:
             return render(request, self.template_name, {'erro': str(e)})
         # return render(request, self.template_name, {'form': form})
