@@ -88,7 +88,7 @@ class MesView(TemplateView):
 
 class RelatorioView(View):
     form_class = RelatorioForm
-    template_name = 'clinica/relatorio.html'
+    template_name = 'clinica/clinica_relatorio_filtro.html'
 
     def get(self, request, id):
         clinica = Clinica.objects.get(pk=id)
