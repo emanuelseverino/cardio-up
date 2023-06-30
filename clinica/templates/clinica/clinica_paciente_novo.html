@@ -2,9 +2,8 @@
 {% block content %}
 <div class="container pt-5">
 
-
     <p class="display-5">{{ clinica }}</p>
-    <p>Até hoje em {{ hoje|date:"F" }} foram cadastrados {{ pacientes_mes|length }} pacientes.</p>
+<!--    <p>Até hoje em {{ hoje|date:"F" }} foram cadastrados {{ pacientes|length }} pacientes.</p>-->
     <div class="card p-5 mt-3 mb-3">
         <p class="display-6">Cadastre aqui um novo paciente para esta a clinica.</p>
         <form method="post">
@@ -33,7 +32,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for paciente in pacientes_mes %}
+        {% for paciente in pacientes %}
         <tr>
             <td scope="row">{{ forloop.counter0|add:1 }}</td>
             <td class="">{{ paciente.nome }}</td>

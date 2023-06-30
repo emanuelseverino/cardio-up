@@ -43,6 +43,7 @@ class ClinicaDeleteView(DeleteView):
 class PacienteNovoView(CreateView):
     model = Paciente
     form_class = PacienteForm
+    # fields = ['nome', ]
     template_name = 'clinica/clinica_paciente_novo.html'
 
     def get_context_data(self, **kwargs):
@@ -50,8 +51,10 @@ class PacienteNovoView(CreateView):
         clinica = Clinica.objects.get(id=self.kwargs['clinica_id'])
         ano = timezone.now().year
         mes = timezone.now().month
-        primeiro_dia = datetime(ano, mes, 1, tzinfo=pytz.timezone('America/Sao_Paulo'))
-        ultimo_dia = datetime(ano, mes, calendar.monthrange(ano, mes)[1], tzinfo=pytz.timezone('America/Sao_Paulo'))
+        primeiro_dia = datetime(ano, mes, 1, tzinfo=pytz.timezone('America/Sao_Paulo')).date()
+        ultimo_dia = datetime(ano, mes, calendar.monthrange(ano, mes)[1], tzinfo=pytz.timezone('America/Sao_Paulo')).date()
+        print(primeiro_dia)
+        print(ultimo_dia)
         context["hoje"] = timezone.now()
         context["mes"] = timezone.now().month
         context["clinica"] = clinica
