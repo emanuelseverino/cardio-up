@@ -19,6 +19,10 @@ class PacienteUpdateView(UpdateView):
     fields = ['nome', ]
     template_name_suffix = "_update_form"
 
+    def get_success_url(self):
+        paciente = Paciente.objects.get(pk=self.kwargs['pk'])
+        return '/clinica/%s/paciente/novo' % paciente.clinica.pk
+
 
 class PacienteDeleteView(DeleteView):
     model = Paciente
