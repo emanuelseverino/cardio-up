@@ -28,6 +28,7 @@
             <th scope="col">Nº</th>
             <th scope="col">Nome</th>
             <th scope="col">Data</th>
+            <th scope="col">Atualizar</th>
             <th scope="col">Excluir</th>
         </tr>
         </thead>
@@ -37,6 +38,9 @@
             <td scope="row">{{ forloop.counter0|add:1 }}</td>
             <td class="">{{ paciente.nome }}</td>
             <td class="">{{ paciente.criado_em|date }}</td>
+            <td>
+                <a href="{% url 'paciente_update' paciente.id %}" class="btn btn-sm btn-outline-success" type="button">Editar</a>
+            </td>
             <td>
                 <a href="{% url 'paciente_delete' paciente.id %}" class="btn btn-sm btn-outline-danger" type="button">x</a>
             </td>

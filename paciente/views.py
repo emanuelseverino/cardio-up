@@ -6,12 +6,18 @@ import pytz as pytz
 from django.utils import timezone
 from django.http import HttpResponse
 from django.views import View
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, UpdateView
 
 from clinica.models import Clinica
 from paciente.models import Paciente
 import xhtml2pdf.pisa as pisa
 from django.template.loader import get_template
+
+
+class PacienteUpdateView(UpdateView):
+    model = Paciente
+    fields = ['nome', ]
+    template_name_suffix = "_update_form"
 
 
 class PacienteDeleteView(DeleteView):
@@ -69,6 +75,3 @@ class PDF(View):
         if form.is_valid():
             print(form.cleaned_data)
         pass
-
-
-
