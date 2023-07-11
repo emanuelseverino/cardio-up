@@ -2,12 +2,13 @@
 {% block content %}
 <div class="container p-5">
     <form method="post">{% csrf_token %}
-        <div class="">
-            {{ form.as_p }}
-            {% for field in form %}
-            {{ field.label|lower }}
+        {% for field in form %}
+            <div class="">
+                <label for="{{ field.label|lower }}" class="form-label">Nome</label>
+                <input autofocus type="text" class="form-control p-3" required id="{{ field.label|lower }}"
+                       name="{{ field.label|lower }}">
+            </div>
             {% endfor %}
-        </div>
         <div class="d-grid align-center mx-auto col-xs-12 col-sm-12">
             <input class="btn btn-success btn-block mt-2  p-3" type="submit" value="Atualizar">
         </div>
