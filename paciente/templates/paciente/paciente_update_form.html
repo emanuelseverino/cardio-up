@@ -2,7 +2,14 @@
 {% block content %}
 <div class="container text-center p-5">
     <form method="post">{% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+        <div class="">
+            <label for="{{ field.label|lower }}" class="form-label">Nome</label>
+            <input autofocus type="text" class="form-control p-3" required id="{{ field.label|lower }}"
+                   name="{{ field.label|lower }}"
+                   placeholder="Ex: Maria José da Silva">
+        </div>
+        {% endfor %}
         <input class="btn btn-success" type="submit" value="Atualizar">
     </form>
 </div>
