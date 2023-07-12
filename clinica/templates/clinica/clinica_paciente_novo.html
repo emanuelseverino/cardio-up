@@ -33,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for paciente in pacientes %}
+        {% for paciente in pacientes_mes %}
         <tr>
             <td scope="row">{{ forloop.counter0|add:1 }}</td>
             <td class="">{{ paciente.nome }}</td>
