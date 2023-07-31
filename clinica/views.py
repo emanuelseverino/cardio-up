@@ -1,6 +1,6 @@
 import calendar
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz as pytz
 from django.shortcuts import render
@@ -12,7 +12,6 @@ from django.utils import timezone
 from django.views.generic import CreateView, DeleteView, ListView, DetailView, TemplateView
 from paciente.models import Paciente
 from paciente.views import Render
-from projeto.settings import BASE_DIR
 
 
 class ClinicaDetailView(DetailView):
@@ -52,14 +51,14 @@ class PacienteNovoView(CreateView):
         ano = timezone.now().year
         mes = timezone.now().month
         primeiro_dia = datetime(ano, mes, 1, tzinfo=pytz.timezone('America/Sao_Paulo')).date()
-        ultimo_dia = datetime(ano, mes, calendar.monthrange(ano, mes)[1], tzinfo=pytz.timezone('America/Sao_Paulo')).date()
-        print(primeiro_dia)
-        print(ultimo_dia)
+        ultimo_dia = datetime(ano, mes, calendar.monthrange(ano, mes)[1],
+                              tzinfo=pytz.timezone('America/Sao_Paulo')).date()
         context["hoje"] = timezone.now()
         context["mes"] = timezone.now().month
         context["clinica"] = clinica
         context["pacientes"] = Paciente.objects.filter(clinica=clinica, criado_em__date=timezone.now())
-        context["pacientes_mes"] = Paciente.objects.filter(clinica=clinica, criado_em__range=(primeiro_dia, ultimo_dia))
+        context["pacientes_mes"] = Paciente.objects.filter(clinica=clinica,
+                                                           criado_em__range=(primeiro_dia, ultimo_dia + timedelta(1)))
         return context
 
     def form_valid(self, form):
